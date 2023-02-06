@@ -4,7 +4,9 @@
     user-select: none;
     overflow: hidden;
 }
-body {}
+body {
+    background: linear-gradient(#7500FF, #FA00FF);
+}
 #preload {
     width: 100%;
     height: 100%;
