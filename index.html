@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page</title>
+        <meta charset="UTF-8">
+        <meta name="theme-color" content="#7500FF">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+        
+        <link rel="stylesheet" href="./CSS/iconos/bootstrap-icons.css">
+        <link rel="stylesheet" href="./CSS/index.css">
+    </head>
+    <body class="container">
+        <!-- preloader -->
+        <div id="preload">
+            
+        </div>
+        <!-- contenedor barra arriba -->
+        <div class="row contenedor">
+            <!-- titulo barra arriba -->
+            <div class="contenedor-titulo">
+                <p class="titulo">Lienzo-DN</p>
+            </div>
+            <!-- opciones barra arriba -->
+            <div class="opciones-up">
+                <button id="btnConfigStyle" onclick="btnConfig()" class="btn-opciones"><span style="font-size: 20px; color: #000; position: relative; left: -2px;" class="bi-gear"></span></button>
+                <button onclick="alerta()" class="btn-opciones"><span style="font-size: 20px; color: #000; position: relative; left: -2px;" class="bi-exclamation-circle"></span></button>
+            </div>
+        </div>
+        
+        <!-- CONFIGURACIONES -->
+        <div id="config" style="border-radius: 10px; border-left:2px solid #fff; border-top:2px solid #fff; border-bottom:2px solid #000; border-right: 2px solid #000; background: linear-gradient(#7500FF, #FA00FF); display: none; z-index: 1; position: fixed; width: 100vw; height: auto;">
+            <!-- Anchura del pincel -->
+            <div style="padding: 10px;">
+                <p style="font-family: LittleBird; color: #fff;">Anchura del pincel:</p>
+                <div style="border-radius: 10px; padding: 5px; width:100%; height:auto; background: #00000050;" class="row">
+                    <label id="pA" style="display: flex; align-items: center; width: 15%; color: #FFF;">4%</label>
+                    <input style="width: 50%;" type="range" id="pincel-ancho" min="0" max="50" value="4"/>
+                    <div style="width: 35%; display: flex; justify-content: center; align-items: center;">
+                        <div id="circleMedida" style="width: 4px; height: 4px; border-radius: 100%; background: black;"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 10px;">
+                <p style="font-family: LittleBird; color: #fff;">Anchura del Borrador:</p>
+                <div style="background: #00000050; border-radius: 10px; padding: 5px; width:100%; height:auto;" class="row">
+                    <label id="bA" style="display: flex; align-items: center; width: 15%; color: #FFF;">4%</label>
+                    <input style="width: 50%;" type="range" id="borrador-ancho" min="0" max="50" value="4"/>
+                    <div style="width: 35%; display: flex; justify-content: center; align-items: center;">
+                        <div id="circleMedidaB" style="width: 4px; height: 4px; border-radius: 100%; background: white;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- contendor del lienzo -->
+        <main>
+            <canvas id="canvas"></canvas>
+        </main>
+        <!-- contendor abajo -->
+        <div class="row contenedor-down">
+            <div class="pinzel-ancho">
+                <div class="row">
+                    <p class="f-p">Fondo:</p>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <div id="indicadorFondo" class="indicador"></div>
+                    </div>
+                </div>
+                <div class="row fc" style="justify-content: center; align-items: center; width: 100%; height: auto;">
+                    <button onclick="fondoRed()" class="btn-colores" style="background: red;"></button>
+                    <button onclick="fondoGreen()" class="btn-colores" style="background: green;"></button>
+                    <button onclick="fondoBlue()" class="btn-colores" style="background: blue;"></button>
+                    <button onclick="fondoBrown()" class="btn-colores" style="background: brown;"></button>
+                </div>
+                <div class="row fc" style="justify-content: center; align-items: center; width: 100%; height: auto;">
+                    <button onclick="fondoWhite()" class="btn-colores" style="background: white;"></button>
+                    <button onclick="fondoBlack()" class="btn-colores" style="background: black;"></button>
+                    <button onclick="fondoGray()" class="btn-colores" style="background: gray;"></button>
+                    <button onclick="fondoOrange()" class="btn-colores" style="background: orange;"></button>
+                </div>
+                <div class="row" style="justify-content: center; align-items: center; width: 100%; height: auto;">
+                    <button onclick="fondoViolet()" class="btn-colores" style="background: violet;"></button>
+                    <button onclick="fondoPink()" class="btn-colores" style="background: pink;"></button>
+                    <button onclick="fondoYellow()" class="btn-colores" style="background: yellow;"></button>
+                    <button onclick="fondoMargenta()" class="btn-colores" style="background: #FF6300;"></button>
+                </div>
+                <div class="row" style="border-bottom: 1px solid #FFF; justify-content: center; align-items: center; width: 100%; height: auto;">
+                    <button onclick="fondoCeleste()" class="btn-colores" style="background: #00EAFF;"></button>
+                    <button onclick="fondoMorado()" class="btn-colores" style="background: #9D00FF;"></button>
+                    <button onclick="fondoLigthGreen()" class="btn-colores" style="background: #00FF87;"></button>
+                    <button onclick="fondoUpPink()" class="btn-colores" style="background: #FF0091;"></button>
+                </div>
+            </div>
+            <div class="container pinzel-color">
+                <div class="row" style="border-left: 1px solid #FFF;">
+                    <p class="f-p">Color:</p>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <div id="indicadorColor" class="indicador"></div>
+                    </div>
+                </div>
+                <div class="row" style="border-left: 1px solid #FFF; justify-content: center; align-items: center; width: 100%; height: auto;">
+                    <button onclick="colorRed()" class="btn-colores" style="background: red;"></button>
+                    <button onclick="colorGreen()" class="btn-colores" style="background: green;"></button>
+                    <button onclick="colorBlue()" class="btn-colores" style="background: blue;"></button>
+                    <button onclick="colorBrown()" class="btn-colores" style="background: brown;"></button>
+                </div>
+                <div class="row" style="border-left: 1px solid #FFF; justify-content: center; align-items: center; width: 100%; height: auto;">
+                    <button onclick="colorWhite()" class="btn-colores" style="background: white;"></button>
+                    <button onclick="colorBlack()" class="btn-colores" style="background: black;"></button>
+                    <button onclick="colorGray()" class="btn-colores" style="background: gray;"></button>
+                    <button onclick="colorOrange()" class="btn-colores" style="background: orange;"></button>
+                </div>
+                <div class="row" style="border-left: 1px solid #FFF; justify-content: center; align-items: center; width: 100%; height: auto;">
+                    <button onclick="colorViolet()" class="btn-colores" style="background: violet;"></button>
+                    <button onclick="colorPink()" class="btn-colores" style="background: pink;"></button>
+                    <button onclick="colorYellow()" class="btn-colores" style="background: yellow;"></button>
+                    <button onclick="colorMargenta()" class="btn-colores" style="background: #FF6300;"></button>
+                </div>
+                <div class="row" style="border-left: 1px solid #FFF; border-bottom: 1px solid #FFF; justify-content: center; align-items: center; width: 100%; height: auto;">
+                    <button onclick="colorCeleste()" class="btn-colores" style="background: #00EAFF;"></button>
+                    <button onclick="colorMorado()" class="btn-colores" style="background: #9D00FF;"></button>
+                    <button onclick="colorLigthGreen()" class="btn-colores" style="background: #00FF87;"></button>
+                    <button onclick="colorUpPink()" class="btn-colores" style="background: #FF0091;"></button>
+                </div>
+            </div>
+        </div>
+        
+        <script src="./JS/index.js"></script>
+        <script src="./JS/canvas.js"></script>
+    </body>
+</html>
